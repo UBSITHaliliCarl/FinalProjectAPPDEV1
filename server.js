@@ -8,12 +8,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Database Hook
 mongoose.connect('mongodb://localhost:27017/cc_enterprises')
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.error(err));
 
-// Schema Definition
 const ItemSchema = new mongoose.Schema({
   sku: { type: String, required: true, unique: true },
   name: { type: String, required: true },
@@ -23,7 +21,6 @@ const ItemSchema = new mongoose.Schema({
 });
 const Item = mongoose.model('Item', ItemSchema);
 
-// Endpoint Routing
 app.get('/api/inventory', async (req, res) => {
   try { res.json(await Item.find()); } catch (err) { res.status(500).json({ error: err.message }); }
 });
