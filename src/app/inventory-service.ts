@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 
 export interface InventoryItem {
   _id?: string;
-  name: string;
   sku: string;
+  name: string;
+  category: string;
   quantity: number;
   price: number;
-  category: string;
-  updatedAt?: Date;
 }
 
 @Injectable({

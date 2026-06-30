@@ -1,44 +1,54 @@
-<div class="dashboard-wrapper">
-    <h2>Live Stock Dashboard</h2>
-  
-    <form (ngSubmit)="submitItem()" class="stock-form">
-      <input [(ngModel)]="newItem.name" name="name" placeholder="Item Name" required />
-      <input [(ngModel)]="newItem.sku" name="sku" placeholder="SKU String" required />
-      <input [(ngModel)]="newItem.quantity" name="quantity" type="number" placeholder="Quantity" />
-      <input [(ngModel)]="newItem.price" name="price" type="number" placeholder="Unit Price" />
-      <input [(ngModel)]="newItem.category" name="category" placeholder="Category" />
-      <button type="submit" class="btn-primary">Add New Stock</button>
+<div class="dashboard-container">
+  <header>
+    <h1>C&C Enterprises</h1>
+    <p>Digital Inventory Management Tracking System</p>
+  </header>
+
+  <section class="form-section">
+    <h3>{{ currentItem._id ? 'Modify Product Entry' : 'Register Asset Item' }}</h3>
+    <form (ngSubmit)="onSubmit()" #inventoryForm="ngForm">
+      <div class="form-grid">
+        <input [(ngModel)]="currentItem.sku" name="sku" placeholder="Product Identification Code" required />
+        <input [(ngModel)]="currentItem.name" name="name" placeholder="Item Name" required />
+        <input [(ngModel)]="currentItem.category" name="category" placeholder="Department Category" required />
+        <input type="number" [(ngModel)]="currentItem.quantity" name="quantity" placeholder="Stock Units Quantity" required />
+        <input type="number" [(ngModel)]="currentItem.price" name="price" placeholder="Unit Standard Price" required />
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="!inventoryForm.form.valid">Execute Save</button>
+        <button type="button" *ngIf="currentItem._id" (click)="currentItem = clearForm()">Cancel</button>
+      </div>
     </form>
-  
-    <table class="inventory-table">
+  </section>
+
+  <section class="table-section">
+    <table>
       <thead>
         <tr>
-          <th>Asset Designation</th>
-          <th>SKU Identification</th>
-          <th>Stock Units</th>
-          <th>Unit Valuation</th>
+          <th>Product Code</th>
+          <th>Product Name</th>
           <th>Category</th>
-          <th>Operational Action</th>
+          <th>In-Stock Quantity</th>
+          <th>Unit Value</th>
+          <th>System Operations</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
+          <td><strong>{{ item.sku }}</strong></td>
           <td>{{ item.name }}</td>
-          <td><code>{{ item.sku }}</code></td>
-          <td>
-            <span [class.low-stock]="item.quantity < 5" class="stock-badge">
-              {{ item.quantity }}
-            </span>
-          </td>
+          <td><span class="badge">{{ item.category }}</span></td>
+          <td>{{ item.quantity }} units</td>
           <td>{{ item.price | currency }}</td>
-          <td>{{ item.category }}</td>
           <td>
-            <button (click)="deleteItem(item._id)" class="btn-danger">Purge</button>
+            <button class="btn-edit" (click)="onEdit(item)">Edit</button>
+            <button class="btn-delete" (click)="onDelete(item._id)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="items.length === 0">
-          <td colspan="6" style="text-align: center; color: #777;">No assets tracked. Add stock above.</td>
+          <td colspan="6" class="empty-state">No structural inventory assets found inside the database.</td>
         </tr>
       </tbody>
     </table>
-  </div>nps
+  </section>
+</div>

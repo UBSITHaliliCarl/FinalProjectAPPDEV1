@@ -10,34 +10,45 @@ import { InventoryService, InventoryItem } from '../inventory-service';
   templateUrl: './inventory-list.html',
   styleUrls: ['./inventory-list.css']
 })
-export class InventoryList implements OnInit {
+export class inventoryList implements OnInit {
   items: InventoryItem[] = [];
-  newItem: InventoryItem = { name: '', sku: '', quantity: 0, price: 0, category: '' };
+  currentItem: InventoryItem = this.clearForm();
 
   constructor(private inventoryService: InventoryService) {}
 
   ngOnInit(): void {
-    this.loadInventory();
+    this.fetchInventory();
   }
 
-  loadInventory(): void {
-    this.inventoryService.getItems().subscribe({
-      next: (data) => this.items = data,
-      error: (err) => console.error('Error fetching dashboard records:', err)
-    });
+  fetchInventory(): void {
+    this.inventoryService.getItems().subscribe(data => this.items = data);
   }
 
-  submitItem(): void {
-    if (!this.newItem.name || !this.newItem.sku) return;
-    
-    this.inventoryService.addItem(this.newItem).subscribe(() => {
-      this.loadInventory();
-      this.newItem = { name: '', sku: '', quantity: 0, price: 0, category: '' };
-    });
+  onSubmit(): void {
+    if (this.currentItem._id) {
+      this.inventoryService.updateItem(this.currentItem._id, this.currentItem).subscribe(() => {
+        this.fetchInventory();
+        this.currentItem = this.clearForm();
+      });
+    } else {
+      this.inventoryService.addItem(this.currentItem).subscribe(() => {
+        this.fetchInventory();
+        this.currentItem = this.clearForm();
+      });
+    }
   }
 
-  deleteItem(id: string | undefined): void {
-    if (!id) return;
-    this.inventoryService.deleteItem(id).subscribe(() => this.loadInventory());
+  onEdit(item: InventoryItem): void {
+    this.currentItem = { ...item };
+  }
+
+  onDelete(id: string | undefined): void {
+    if (id && confirm('Are you sure you want to remove this item?')) {
+      this.inventoryService.deleteItem(id).subscribe(() => this.fetchInventory());
+    }
+  }
+
+  clearForm(): InventoryItem {
+    return { sku: '', name: '', category: '', quantity: 0, price: 0 };
   }
 }
