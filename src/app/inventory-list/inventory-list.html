@@ -1,6 +1,6 @@
 <div class="dashboard-container">
   <header>
-    <h1>C&C Enterprises</h1>
+    <h1>Carl² Enterprises</h1>
     <p>Digital Inventory Management Tracking System</p>
   </header>
 
@@ -15,7 +15,7 @@
         <input type="number" [(ngModel)]="currentItem.price" name="price" placeholder="Unit Standard Price" required />
       </div>
       <div class="form-actions">
-        <button type="submit" [disabled]="!inventoryForm.form.valid">Execute Save</button>
+        <button type="submit" [disabled]="!inventoryForm.form.valid">Save</button>
         <button type="button" *ngIf="currentItem._id" (click)="currentItem = clearForm()">Cancel</button>
       </div>
     </form>
