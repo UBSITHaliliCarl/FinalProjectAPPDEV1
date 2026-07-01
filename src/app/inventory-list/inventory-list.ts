@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { InventoryService, InventoryItem } from '../inventory-service';
 
 @Component({
   selector: 'app-inventory-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './inventory-list.html',
   styleUrls: ['./inventory-list.css']
 })
@@ -14,7 +15,10 @@ export class inventoryList implements OnInit {
   items: InventoryItem[] = [];
   currentItem: InventoryItem = this.clearForm();
 
-  constructor(private inventoryService: InventoryService) {}
+  constructor(
+    private inventoryService: InventoryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchInventory();
@@ -43,8 +47,14 @@ export class inventoryList implements OnInit {
   }
 
   onDelete(id: string | undefined): void {
-    if (id && confirm('Are you sure you want to remove this item?')) {
+    if (id && confirm('⚠️ Are you sure you want to remove this item?')) {
       this.inventoryService.deleteItem(id).subscribe(() => this.fetchInventory());
+    }
+  }
+
+  onLogout(): void {
+    if (confirm('⚠️ Are you sure you want to logout?')) {
+      this.router.navigate(['/login']);
     }
   }
 

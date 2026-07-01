@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login';
+import { Login } from './login/login';
 import { inventoryList } from './inventory-list/inventory-list';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    component: Login,
     title: "Login | Carl² Enterprises Inventory"
   },
   {
