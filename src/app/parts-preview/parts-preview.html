@@ -1,0 +1,30 @@
+<div class="dashboard-container">
+    <header>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h1>📋 Parts Catalog Preview</h1>
+          <p>Pre-configured standard stock models from AMD, NVIDIA, MSI, and others</p>
+        </div>
+        <button (click)="goBack()" style="background: #6c757d; padding: 0.5rem 1rem;">🔙 Back to Dashboard</button>
+      </div>
+    </header>
+  
+    <section class="catalog-section">
+      <p style="color: #666; margin-bottom: 2rem;">Select from standard hardware item templates below to automatically seed them straight into your active repository logs.</p>
+      
+      <div class="catalog-grid">
+        <div class="catalog-card" *ngFor="let sample of previewCatalog">
+          <div class="card-header">
+            <span class="sku-tag">{{ sample.sku }}</span>
+            <span class="badge">🏷️ {{ sample.category }}</span>
+          </div>
+          <h4>{{ sample.name }}</h4>
+          <div class="card-footer">
+            <span class="price-text">{{ sample.price | currency:'PHP':'symbol':'1.2-2' }}</span>
+            <button class="btn-add-preview" (click)="quickAddProduct(sample)">➕ Add Item</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  

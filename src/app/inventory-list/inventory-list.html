@@ -9,6 +9,14 @@
     </div>
   </header>
 
+  <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end;">
+    <a routerLink="/preview-catalog" style="text-decoration: none;">
+      <button type="button" style="background: #28a745; display: flex; align-items: center; gap: 0.5rem;">
+        📋 View Possible Products Catalog
+      </button>
+    </a>
+  </div>
+
   <section class="form-section">
     <h3>{{ currentItem._id ? '📝 Modify Product Entry' : '➕ Register Asset Item' }}</h3>
     <form (ngSubmit)="onSubmit()" #inventoryForm="ngForm">
@@ -51,7 +59,7 @@
           </td>
         </tr>
         <tr *ngIf="items.length === 0">
-          <td colspan="6" class="empty-state">⚠️ No structural inventory assets found inside the database.</td>
+          <td colspan="6" class="empty-state">⚠️ No inventory assets found in the database.</td>
         </tr>
       </tbody>
     </table>
