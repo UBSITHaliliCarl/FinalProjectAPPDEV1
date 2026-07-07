@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // 1. Added ChangeDetectorRef import
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -17,7 +17,8 @@ export class inventoryList implements OnInit {
 
   constructor(
     private inventoryService: InventoryService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef // 2. Injected the Change Detector here
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +26,10 @@ export class inventoryList implements OnInit {
   }
 
   fetchInventory(): void {
-    this.inventoryService.getItems().subscribe(data => this.items = data);
+    this.inventoryService.getItems().subscribe(data => {
+      this.items = data;
+      this.cdr.detectChanges(); // 3. Forces Angular to draw the items to your screen immediately!
+    });
   }
 
   onSubmit(): void {
