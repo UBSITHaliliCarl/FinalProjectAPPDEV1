@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --bg-app: #ffffff;
+    --bg-surface: #f9f9f9;
+    --bg-table-header: #f1f1f1;
+    --border-color: #dddddd;
+    --border-dashed: #eeeeee;
+    --text-main: #111111;
+    --text-body: #222222;
+    --text-muted: #666666;
+    --sku-color: #555555;
+    --sku-bg: #eaeaea;
+    --badge-bg: #e2e8f0;
+    
+    --color-primary: #0056b3;
+    --color-success: #28a745;
+    --color-success-hover: #218838;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    --color-neutral: #6c757d;
+    
+    --shadow-subtle: rgba(0,0,0,0.02);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-app: #121212;
+      --bg-surface: #1e1e1e;
+      --bg-table-header: #252526;
+      --border-color: #333333;
+      --border-dashed: #2d2d2d;
+      --text-main: #f8f9fa;
+      --text-body: #e0e0e0;
+      --text-muted: #aaaaaa;
+      --sku-color: #e0e0e0;
+      --sku-bg: #3a3a3c;
+      --badge-bg: #2c2c2e;
+      
+      --color-primary: #3793ff;
+      --color-success: #34c759;
+      --color-success-hover: #2db04e;
+      --color-warning: #ffcc00;
+      --color-danger: #ff453a;
+      --color-neutral: #8e8e93;
+      
+      --shadow-subtle: rgba(0,0,0,0.4);
+    }
+  }
+  
+  html, body {
+    background-color: var(--bg-app);
+    color: var(--text-body);
+    margin: 0;
+    padding: 0;
+  }
+  
